@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register | UnWise</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+</head>
+<body>
+<section class="section hero is-fullheight has-background-white-ter">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6-tablet is-5-desktop is-4-widescreen">
+        <form th:action="@{/register}" method="post" class="box">
+          <h1 class="title is-4 mb-4 has-text-centered">Sign up to UnWise</h1>
+          <article th:if="${error}" class="message is-danger">
+            <div class="message-body">
+              Error: <span th:text="${error}">An error occurred.</span>
+            </div>
+          </article>
+          <div class="field">
+            <label for="username" class="label">Username</label>
+            <div class="control">
+              <input id="username" name="username" placeholder="Your Username" class="input" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="password" class="label">Password</label>
+            <div class="control">
+              <input type="password" name="password" id="password" placeholder="*******" class="input" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="confirmPassword" class="label">Confirm Password</label>
+            <div class="control">
+              <input type="password" name="confirmPassword" id="confirmPassword" placeholder="*******" class="input" required>
+            </div>
+          </div>
+          <div class="field">
+            <button type="submit" class="button is-success">
+              Sign Up
+            </button>
+          </div>
+          <p>
+            <a href="/login" class="has-text-grey">Already have an account? Sign in</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UnWise</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <script src="/js/dashboard.js"></script>
+</head>
+<body>
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
+<h1 class="title has-text-centered mt-6">
+  Transfer History
+</h1>
+<div class="container columns is-desktop">
+  <div class="column">
+    <h2 class="title is-4 has-text-centered">Outgoing</h2>
+    <table class="table is-hoverable is-striped is-narrow is-fullwidth">
+      <thead>
+      <tr>
+        <th>Amount</th>
+        <th>Recipient</th>
+        <th>Date</th>
+        <th>Reference</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="transfer : ${outgoing}">
+        <td th:text="${#numbers.formatCurrency(transfer.getAmount())}">£100.00</td>
+        <td th:text="${transfer.getRecipient()}">John Doe</td>
+        <td th:text="${#dates.format(transfer.getCreatedAt(), 'dd/MM/yyyy HH:mm')}">01/01/2020</td>
+        <td th:utext="${transfer.getReference()}">Payment</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="column">
+    <h2 class="title is-4 has-text-centered">Incoming</h2>
+    <table class="table is-hoverable is-striped is-narrow is-fullwidth">
+      <thead>
+      <tr>
+        <th>Amount</th>
+        <th>Sender</th>
+        <th>Date</th>
+        <th>Reference</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="transfer : ${incoming}">
+        <td th:text="${#numbers.formatCurrency(transfer.getAmount())}">£100.00</td>
+        <td th:text="${transfer.getSender()}">John Doe</td>
+        <td th:text="${#dates.format(transfer.getCreatedAt(), 'dd/MM/yyyy HH:mm')}">01/01/2020</td>
+        <td th:utext="${transfer.getReference()}">Payment</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

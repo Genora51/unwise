@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transfer | UnWise</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <script src="/js/dashboard.js"></script>
+</head>
+<body>
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
+<main class="container">
+  <div class="columns is-centered">
+    <div class="column is-8-tablet is-7-desktop is-6-widescreen">
+      <h1 class="title has-text-centered mt-6">
+        Make a Transfer
+      </h1>
+
+      <form th:object="${createTransfer}" th:action="@{/transfer}" method="post" class="box">
+        <article class="message is-info mb-2">
+          <div class="message-body">
+            Current balance:
+            <strong th:text="${#numbers.formatCurrency(balance)}">
+              £1,000.00
+            </strong>
+          </div>
+        </article>
+        <article class="message is-danger mb-2" th:if="${#fields.hasGlobalErrors()}">
+          <div class="message-body">
+            <strong>Error:</strong>
+            <ul>
+              <li th:each="error : ${#fields.globalErrors()}" th:text="${error}">
+                Error message
+              </li>
+            </ul>
+          </div>
+        </article>
+        <div class="field">
+          <label class="label" for="recipient">Recipient Username</label>
+          <div class="control">
+            <input id="recipient" th:field="*{recipient}" name="recipient"
+                   placeholder="Recipient Username" class="input"
+                   required>
+          </div>
+          <p th:if="${#fields.hasErrors('recipient')}" class="help is-danger"
+             th:errors="*{recipient}">Recipient
+            username is required</p>
+        </div>
+
+        <div class="field">
+          <label class="label" for="amount">Amount</label>
+          <div class="field has-addons">
+            <div class="control">
+              <a class="button is-static">
+                £
+              </a>
+            </div>
+            <div class="control is-flex-grow-1">
+              <input type="number" step="0.01" value="10.00" th:max="${balance}"
+                     th:field="*{amount}" id="amount" name="amount"
+                     placeholder="1000.00" class="input" required>
+            </div>
+            <p th:if="${#fields.hasErrors('amount')}" class="help is-danger" th:errors="*{amount}">
+              Amount is
+              required</p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="reference">Reference</label>
+          <div class="control">
+            <input id="reference" th:field="*{reference}" name="reference" placeholder="Reference"
+                   class="input" required>
+          </div>
+          <p th:if="${#fields.hasErrors('reference')}" class="help is-danger"
+             th:errors="*{reference}">
+            Reference is required
+          </p>
+        </div>
+
+        <div class="control">
+          <button class="button is-primary" type="submit">Submit Transfer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+</body>
+</html>

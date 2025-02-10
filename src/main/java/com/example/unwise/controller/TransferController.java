@@ -28,8 +28,7 @@ public class TransferController {
   public String showTransferForm(Model model, Principal principal) {
     User user = userRepository.findByUsername(principal.getName()).get();
     model.addAttribute("balance", user.getBalance());
-    CreateTransfer createTransfer = new CreateTransfer();
-    createTransfer.setAmount(10);
+    CreateTransfer createTransfer = CreateTransfer.builder().amount(10).build();
     model.addAttribute("createTransfer", createTransfer);
     return "transfer";
   }

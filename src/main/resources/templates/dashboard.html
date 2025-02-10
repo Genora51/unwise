@@ -12,6 +12,20 @@
 <h1 class="title has-text-centered mt-6">
   Welcome back, <span th:text="${username}">User</span>!
 </h1>
+<div class="container is-max-tablet">
+  <article th:if="${flag}" class="message is-warning">
+    <div class="message-body">
+      <strong>You are a billionaire!</strong>
+      <p>
+        Here is your flag:
+        <code
+              th:text="${flag}">
+          fake_flag
+        </code>
+      </p>
+    </div>
+  </article>
+</div>
 <section class="has-text-centered mt-6 mb-6">
   <h2 class="title is-4 mb-0">Your balance:</h2>
   <span class="title is-2 mt-2 is-display-block" th:text="${#numbers.formatCurrency(balance)}">£1,000.00</span>

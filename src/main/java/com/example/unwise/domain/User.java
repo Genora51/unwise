@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class User implements UserDetails {
   private String username;
   private String password;
+  private double balance;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

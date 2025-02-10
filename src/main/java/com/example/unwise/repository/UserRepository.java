@@ -16,9 +16,16 @@ public class UserRepository {
       INSERT INTO users (username, password)
       VALUES (:username, :password)
       """;
+
   private static final String SQL_SELECT_USER_BY_USERNAME = """
-      SELECT username, password
+      SELECT username, password, balance
       FROM users
+      WHERE username = :username
+      """;
+
+  private static final String SQL_UPDATE_BALANCE = """
+      UPDATE users
+      SET balance = :balance
       WHERE username = :username
       """;
 
@@ -31,6 +38,13 @@ public class UserRepository {
     ));
   }
 
+  public void setBalance(String username, double balance) {
+    jdbc.update(SQL_UPDATE_BALANCE, Map.of(
+        "balance", balance,
+        "username", username
+    ));
+  }
+
   public Optional<User> findByUsername(String username) {
     try {
       User user = jdbc.queryForObject(SQL_SELECT_USER_BY_USERNAME, Map.of("username", username),
@@ -38,6 +52,7 @@ public class UserRepository {
               User.builder()
                   .username(rs.getString("username"))
                   .password(rs.getString("password"))
+                  .balance(rs.getDouble("balance"))
                   .build()
       );
       return Optional.ofNullable(user);

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar is-primary" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item title is-4 m-0" href="/">
+      UnWise
+    </a>
+
+    <a role="button" class="navbar-burger has-text-black" aria-label="menu" aria-expanded="false"
+       data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/">
+        Home
+      </a>
+
+      <a class="navbar-item" href="/transfer">
+        Transfer
+      </a>
+
+      <a class="navbar-item" href="/history">
+        History
+      </a>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-light" href="/logout">
+            Log out
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+</body>
+</html>

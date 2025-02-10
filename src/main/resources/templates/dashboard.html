@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UnWise</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <script src="/js/dashboard.js"></script>
+</head>
+<body>
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
+<h1 class="title has-text-centered mt-6">
+  Welcome back, <span th:text="${username}">User</span>!
+</h1>
+<section class="has-text-centered mt-6 mb-6">
+  <h2 class="title is-4 mb-0">Your balance:</h2>
+  <span class="title is-2 mt-2 is-display-block" th:text="${#numbers.formatCurrency(balance)}">£1,000.00</span>
+</section>
+<section class="buttons is-justify-content-center">
+  <a th:href="@{/transfer}" class="button is-primary is-light">
+    Make a Transfer
+  </a>
+
+  <a th:href="@{/history}" class="button is-primary is-light">
+    View Transfer History
+  </a>
+</section>
+</body>
+</html>

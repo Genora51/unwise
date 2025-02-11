@@ -37,38 +37,39 @@ public class AuthController {
   }
 
   @GetMapping("/register")
-  public String register() {
+  public String register(Model model) {
+    RegistrationRequest registrationRequest = new RegistrationRequest();
+    model.addAttribute("registrationRequest", registrationRequest);
     return "auth/register";
   }
 
   @PostMapping("/register")
   public String submitRegistration(
-      @Valid RegistrationRequest registrationRequest, BindingResult result, Model model,
+      @Valid RegistrationRequest registrationRequest, BindingResult result,
       RedirectAttributes redirectAttributes) {
     if (result.hasErrors()) {
-      model.addAttribute("error", "Validation failed");
       return "auth/register";
     }
 
     if (!registrationRequest.getPassword().equals(registrationRequest.getConfirmPassword())) {
-      model.addAttribute("error", "Passwords do not match");
+      result.rejectValue("confirmPassword", "password.match", "Passwords do not match");
       return "auth/register";
     }
 
     Optional<User> existingUser = userRepository.findByUsername(registrationRequest.getUsername());
     if (existingUser.isPresent()) {
-      model.addAttribute("error", "User already exists");
+      result.rejectValue("username", "username.taken", "Username is already taken");
       return "auth/register";
     }
 
     String encodedPassword = passwordEncoder.encode(registrationRequest.getPassword());
-    log.info(encodedPassword);
 
     User user = User.builder()
         .username(registrationRequest.getUsername())
         .password(encodedPassword)
         .build();
     userRepository.create(user);
+    log.info("Registered new user [{}]", user.getUsername());
     redirectAttributes.addFlashAttribute("message", "User created successfully - please log in");
     return "redirect:/login";
   }

@@ -1,4 +1,4 @@
-# Unwise
+# UnWise
 
 An intentionally insecure web application.
 There are three flags hidden in the application;
@@ -22,7 +22,7 @@ before HMRC gets there first?
 
 Paranoid about the security of his new system, and not having written any unit tests,
 Kristo has resorted to manually testing his code, frantically logging in and out,
-sending transactions, and checking his balance. Can you leak Kristo's account
+sending transactions, and checking his balance history. Can you leak Kristo's account
 password and claim the final flag?
 
 ## Notes

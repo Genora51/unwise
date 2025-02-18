@@ -17,7 +17,7 @@ public class DashboardController {
 
   @GetMapping("/")
   public String dashboard(Principal principal, Model model) {
-    User user = userRepository.findByUsername(principal.getName()).get();
+    User user = userRepository.findByUsername(principal.getName()).orElseThrow();
     model.addAttribute("username", user.getUsername());
     model.addAttribute("balance", user.getBalance());
     if (user.getBalance() > 1_000_000_000) {

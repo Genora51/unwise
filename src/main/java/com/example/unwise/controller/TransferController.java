@@ -26,7 +26,7 @@ public class TransferController {
 
   @GetMapping("")
   public String showTransferForm(Model model, Principal principal) {
-    User user = userRepository.findByUsername(principal.getName()).get();
+    User user = userRepository.findByUsername(principal.getName()).orElseThrow();
     model.addAttribute("balance", user.getBalance());
     CreateTransfer createTransfer = CreateTransfer.builder().amount(10).build();
     model.addAttribute("createTransfer", createTransfer);
@@ -37,7 +37,7 @@ public class TransferController {
   public String makeTransfer(@Valid CreateTransfer createTransfer,
       BindingResult result, Model model, RedirectAttributes redirectAttributes, Principal principal) {
     if (result.hasErrors()) {
-      User user = userRepository.findByUsername(principal.getName()).get();
+      User user = userRepository.findByUsername(principal.getName()).orElseThrow();
       model.addAttribute("balance", user.getBalance());
       return "transfer";
     }
@@ -45,7 +45,7 @@ public class TransferController {
       transferService.transfer(createTransfer, principal.getName());
     } catch (IllegalArgumentException e) {
       result.reject("transfer.failure", e.getMessage());
-      User user = userRepository.findByUsername(principal.getName()).get();
+      User user = userRepository.findByUsername(principal.getName()).orElseThrow();
       model.addAttribute("balance", user.getBalance());
       return "transfer";
     }
